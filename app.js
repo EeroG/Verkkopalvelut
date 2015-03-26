@@ -1,4 +1,4 @@
-// tehdään angular module, johon injektoidaan firebase riippuvuus
+// tehdään angular moduli, johon injektoidaan firebase
 angular.module('scheduleApp', ['firebase'])
 
 
@@ -20,7 +20,7 @@ angular.module('scheduleApp', ['firebase'])
 
 
 
-    //Seuraavaksi tehdään datan asetusfunktio.
+    //Seuraavaksi tehdään oletusarvojen asetusfunktio.
     $scope.reset = function () {
 
         fb.$set({
