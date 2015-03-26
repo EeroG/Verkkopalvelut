@@ -1,26 +1,24 @@
 // tehdään angular moduli, johon injektoidaan firebase
 angular.module('scheduleApp', ['firebase'])
 
-
-//tehdään pääkontrolleri 
+/** 
+ * Tehdään pääkontrolleri, joka määrittää miten angular-sovellus toimii. Kontrolleri on javascript objekti joka luodaan
+ * object constructorin avulla. Esim määrittämällä controllerin sisällä $scope.name = Eero; voidaan muuttujaa kutsua
+ * HTML:ssä {{name}}.
+ */
 
 .controller('mainController', function ($scope, $firebase) {
-
-
+    //yhteys firebase palvelimen tietokantaan
     var ref = new Firebase("https://scorching-heat-3335.firebaseio.com/days");
-
     var fb = $firebase(ref);
-
-    //$asObjectin avulla syncronoidaan firebase-kannan JSON-objektit angular-objekteiksi
+    /**
+     * $asObject-metodin avulla syncronoidaan firebase-kannan JSON-objektit angular-objekteiksi, 
+     * jolloin niitä voidaan käyttää sovelluksessa */
     var syncObject = fb.$asObject();
-
-    //edellisen objektin avulla bindataan tietokanta myös $scope-muuttujaan.
+    //edellisen objektin avulla bindataan tietokanta myös $scope-muuttujaan eli controlleriin.
     //Näin yksinkertaisesti tietokanta on bindattu kaikille käyttäjille reaaliajassa
     syncObject.$bindTo($scope, 'days');
-
-
-
-    //Seuraavaksi tehdään oletusarvojen asetusfunktio.
+    //Seuraavaksi tehdään oletusarvojen asetusfunktio, jota kutsutaan "Tyhjennä varaukset"-nappia painettaessa.
     $scope.reset = function () {
 
         fb.$set({
