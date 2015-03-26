@@ -1,8 +1,7 @@
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Angular Scheduling</title>
+    <title>Ajanvaraus-app</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 
@@ -11,29 +10,29 @@
     <script src="https://cdn.firebase.com/js/client/1.1.1/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
     <script src="app.js"></script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
-
 <body>
+    <!-- Määritellään kontrolleri, joka määrittää miten AngularJS-sovellus toimii. ng-app alustaa sovelluksen automaattisesti
+    sivun latautuessa-->
     <div class="container" ng-app="scheduleApp" ng-controller="mainController">
 
         <div class="page-header text-center">
             <h1>Ajanvaraus-app</h1>
         </div>
-
-
         <div class="row times">
-
+            <!-- Angularin ng-repeat direktiivi toimii kuten forEach ja käy läpi objektin (tässä tietokannan json-datan) tai arrayn  ja
+            kloonaa html elementin jokaista kohtaan varten-->
             <div class="col-md-2 col-xs-4 text-center" ng-repeat="day in days">
-
+                <!--AngularJS-muuttujien tulostaminen html:n sekaan onnistuu helposti aaltosulkujen sisällä   -->
                 <h2>{{ day.name }}</h2>
-
+                <!-- -->
                 <div class="time-slot" ng-repeat="slot in day.slots">
-
+                    <!-- javascript-muuttujia voi tulostaa myös html-elementtien parametreiksi -->
                     <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
 
                     <label for="{{ day.name }}-{{ $index }}">{{ slot.time }}
                         <br>
+                        <!--jos slot.booked=true, näkyy teksti "Varattu", jos false niin tekstinä "Varaa aika" -->
                         <span ng-if="slot.booked">Varattu</span>
                         <span ng-if="!slot.booked">Varaa aika</span>
                     </label>
@@ -44,10 +43,9 @@
 
         </div>
         <p class="text-center">
+            <!-- ng-click on sama kuin onClick -->
             <a href="#" class="btn btn-primary" ng-click="reset()">Tyhjennä ajanvaraukset</a>
         </p>
-        
     </div>
 </body>
-
 </html>
